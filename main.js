@@ -2,64 +2,74 @@
 // we need to track the number of times a availible box has been clicked
 
 // we need to designate the player "guess" value
-const p1Guess = 1;
-const p2Guess = -1;
-const color = null ; 
+const lookUp = { 
+    "1"  : "purple",
+    "-1" : "lime",
+    null : "white",
+}
 const winComb = { 
-    1: ['block1','block2','block3'],
-    2: ['block4','block5','block6'],
-    3: ['block7','block8','block9'],
-    4: ['block1','block4','block7'],
-    5: ['block2','block5','block8'],
-    6: ['block3','block6','block9'],
-    7: ['block1','block5','block9'],
-    8: ['block3','block5','block7'],
+    1: ['b1','b2','b3'],
+    2: ['b4','b5','b6'],
+    3: ['b7','b8','b9'],
+    4: ['b1','b4','b7'],
+    5: ['b2','b5','b8'],
+    6: ['b3','b6','b9'],
+    7: ['b1','b5','b9'],
+    8: ['b3','b5','b7'],
 }
 
 /*----- app's state (variables) -----*/
- let nbrClicks = 0;
+ 
+let boxAns , turn, winner;
 
-// we need to see which boxes have been clicked and by who
 
 
-sqrs = []
-let winner = 0
-let turn = 0
+
+
 
 
 
 /*----- cached element references -----*/
-const boxAns = {
-    b1: [1, 0, -1],
-    b2: [1, 0, -1],
-    b3: [1, 0, -1],
-    b4: [1, 0, -1],
-    b5: [1, 0, -1],
-    b5: [1, 0, -1],
-    b6: [1, 0, -1],
-    b7: [1, 0, -1],
-    b8: [1, 0, -1],
-    b9: [1, 0, -1],
-}
-/*----- event listeners -----*/
+const squares = document.querySelectorAll("table");
+const message = document.querySelector('#reset');
 
-document.getElementById('sqrs').addEventListener("click",boxClick);
-document.getElementById('reset').onclick.init();
+
+/*--------------Event Listeners------------------*/ 
+const boxAns = document.querySelectorAll('#sqrs').addEventListener('click',handleMove);
+const message = document.querySelector('#reset').addEventListener('click', init);
+
 
 /*----- functions -----*/
+function init() {
+    boxAns = [null, null, null, null, null, null, null , null, null];
+    turn = 1;
+    winner = null;
+    render();
 
-init();
-//we need to track clicks and see if they are odd or even and have the clicks 
-//give the boxes values and reder an X or an O value based on the click number
-function clickCnt(evt){  for 
-clickCnt = 
 }
 
-function boxClick(evt){
-    const box = event.target.getElementById;
-    if (  )
-};
 
 
 
 
+
+
+function render(){
+    console.log(boxAns , "these are the ")
+    board.forEach(function(squares, idx){
+        boxAns[idx].style.backgroundColor = lookUp[squares];
+        
+    });
+}
+function handleMove(event){
+    const index = parseInt(event.target.id.replace("sqrs",""));
+    if (board[index]) {
+        return;
+    board[index] = turn;
+    turn *= -1;
+    render();
+    }
+
+}
+
+init();
