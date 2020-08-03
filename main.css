@@ -1,0 +1,36 @@
+
+
+
+body {
+    margin: 0px;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: lightblue;
+    align-content: center;
+    
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+
+}
+.grWrap { 
+    display: grid;
+    width: 150 px;
+    height: 300px;
+    grid-template-columns: auto auto auto;
+    
+    padding: 0px 100px 0px 100px;
+
+}
+.sqrs {
+    display: grid;
+    outline: none;
+    border: 10px solid black;
+    padding: 10px 10px 10px 10px;
+
+}
