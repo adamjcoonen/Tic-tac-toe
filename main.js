@@ -3,24 +3,24 @@
 
 // we need to designate the player "guess" value
 const lookUp = { 
-    "1"  : "purple",
-    "-1" : "lime",
+    "1"  : "red",
+    "-1" : "blue",
     null : "white",
-}
-const winComb = { 
-    1: ['b1','b2','b3'],
-    2: ['b4','b5','b6'],
-    3: ['b7','b8','b9'],
-    4: ['b1','b4','b7'],
-    5: ['b2','b5','b8'],
-    6: ['b3','b6','b9'],
-    7: ['b1','b5','b9'],
-    8: ['b3','b5','b7'],
-}
+};
+const winComb = [
+    ['0','1','2'],
+    ['3','4','5'],
+    ['6','7','8'],
+    ['0','3','6'],
+    ['1','4','7'],
+    ['2','5','8'],
+    ['0','4','8'],
+    ['2','4','6'],
+];
 
 /*----- app's state (variables) -----*/
  
-let boxAns , turn, winner;
+let boxAns, turn, winner;
 
 
 
@@ -30,16 +30,19 @@ let boxAns , turn, winner;
 
 
 /*----- cached element references -----*/
-const squares = document.querySelectorAll("table");
-const message = document.querySelector('#reset');
-
+const squares = document.querySelectorAll("section div");
+const message = document.getElementById('reset');
+const cells = document.querySelector('section')
 
 /*--------------Event Listeners------------------*/ 
-const boxAns = document.querySelectorAll('#sqrs').addEventListener('click',handleMove);
-const message = document.querySelector('#reset').addEventListener('click', init);
+cells.addEventListener('click',handleMove)
+message.addEventListener('click',init)
 
 
 /*----- functions -----*/
+init();
+
+
 function init() {
     boxAns = [null, null, null, null, null, null, null , null, null];
     turn = 1;
@@ -49,27 +52,35 @@ function init() {
 }
 
 
+function checkWinner(){
 
-
-
-
-
-function render(){
-    console.log(boxAns , "these are the ")
-    board.forEach(function(squares, idx){
-        boxAns[idx].style.backgroundColor = lookUp[squares];
-        
-    });
-}
-function handleMove(event){
-    const index = parseInt(event.target.id.replace("sqrs",""));
-    if (board[index]) {
-        return;
-    board[index] = turn;
-    turn *= -1;
-    render();
+    for (let i = 0 ; i < winComb.length; i++){ 
+        if (Math.abs(boxAns[winComb[i][0]] +  boxAns[winComb[i][1]] + boxAns[winComb[i][2]]) === 3) return boxAns[winComb[i][0]]; 
     }
 
-}
+        if (boxAns.includes(null)) return null;
+        return 'tGame';
 
-init();
+    }
+function render(){
+    boxAns.forEach(function(square, idx){
+        squares[idx].style.background = lookUp[square];
+        
+    });
+    if (winner === 'tGame' ) {
+        message.innerHTML = " It was a tie, try again"
+    } else if (winner)
+            { message.innerHTML = ' way to go ' + lookUp[winner]+ '!'
+}   else { message.innerHTML = ""+lookUp[turn]+' its your turn.'
+    }
+}
+function handleMove(event){
+    // this is the way I retrieve the index of the boxes that are selected
+    const index = event.target.id;
+    if (boxAns[index] || winner) {
+        return;}
+    boxAns[index] = turn;
+    turn *= -1;
+    winner = checkWinner()
+    render();
+    }    
