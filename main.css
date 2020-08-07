@@ -2,12 +2,19 @@
 
 
 body {
+  display: flex;
   font-family: 'Times New Roman', Times, serif;
   background-color: aqua;
+  padding: 0px 200px 0px 200px;
+  position: relative;
+  
 }
 
 #graph {
     text-align: center;
+    width: 500px;
+    padding: 0px 100px 0px 100px;
+    position: absolute;
 }
 
 
@@ -33,4 +40,3 @@ body {
   .center {
       width: 622px;
   }
-}
